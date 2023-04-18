@@ -16,7 +16,7 @@ def get_current_time():
 
 
 def get_yesterdays_time():
-    delta = timedelta(hours=168)
+    delta = timedelta(hours=24)
     yesterday_time = datetime.now(timezone.utc) - delta
     yesterday_time_iso = yesterday_time.strftime('%Y-%m-%dT%H:%M:%SZ')
     return yesterday_time_iso

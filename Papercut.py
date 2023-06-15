@@ -35,11 +35,6 @@ def get_search_results():
     except Exception as e:
         print(e)
 
-user_input = input("Hostname: ")
-
-response = get_search_results()
-if response == None:
-    exit()
 
 def filter_response(response):
     print(response.status_code)
@@ -59,4 +54,8 @@ def filter_response(response):
         print(f'Error {response.status_code}: {response.text}')
     return parsed_json
 
+user_input = input("Hostname: ")
+response = get_search_results()
+if response == None:
+    exit()
 filter_response(response)

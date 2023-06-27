@@ -82,5 +82,3 @@ def filter_response(responses):
 
 responses = get_search_results()
 filter_response(responses)
-    exit()
-filter_response(response)

@@ -32,7 +32,7 @@ def get_search_results():
 
     for minutes in timeframes:
         start_time_iso = get_time_minutes_ago(minutes)
-        end_time_iso = get_time_minutes_ago(minutes)
+        end_time_iso = get_time_minutes_ago(minutes-30)
         url_base = 'https://api.xdr.trendmicro.com'
         url_path = '/v3.0/search/endpointActivities'
         query_params = {'startDateTime': start_time_iso, 'endDateTime': end_time_iso, 'top': '5000'}

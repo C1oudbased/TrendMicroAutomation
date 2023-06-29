@@ -48,9 +48,7 @@ def get_search_results():
                 print(f'Error {response.status_code}: {response.text}')
         except Exception as e:
             print(e)
-
         print_progress(len(results), len(timeframes))
-
     print()
     return results
 
@@ -93,11 +91,10 @@ def print_progress(iteration, total):
 
 
 responses = get_search_results()
-
 total_iterations = len(responses)
 for i, response in enumerate(responses, start=1):
     print_progress(i, total_iterations)
-
+    
 print()
 
 filter_response(responses)

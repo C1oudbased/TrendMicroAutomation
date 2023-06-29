@@ -2,6 +2,7 @@ import requests
 import configparser
 import json
 import time
+import sys
 from datetime import datetime, timedelta, timezone
 
 
@@ -32,7 +33,7 @@ def get_search_results():
 
     for minutes in timeframes:
         start_time_iso = get_time_minutes_ago(minutes)
-        end_time_iso = get_time_minutes_ago(minutes-30)
+        end_time_iso = get_time_minutes_ago(minutes - 30)
         url_base = 'https://api.xdr.trendmicro.com'
         url_path = '/v3.0/search/endpointActivities'
         query_params = {'startDateTime': start_time_iso, 'endDateTime': end_time_iso, 'top': '5000'}
@@ -47,7 +48,10 @@ def get_search_results():
                 print(f'Error {response.status_code}: {response.text}')
         except Exception as e:
             print(e)
-    
+
+        print_progress(len(results), len(timeframes))
+
+    print()
     return results
 
 
@@ -61,7 +65,8 @@ def filter_response(responses):
         duplicate_users = []
 
         if response.ok:
-            if 'application/json' in response.headers.get('Content-Type', '') and len((json_response := response.json())['items']):
+            if 'application/json' in response.headers.get('Content-Type', '') and len(
+                    (json_response := response.json())['items']):
                 with open('output.txt', 'a') as file:
                     for item in json_response['items']:
                         username = item['logonUser']
@@ -80,5 +85,19 @@ def filter_response(responses):
             print(f'Error {response.status_code}: {response.text}')
 
 
+def print_progress(iteration, total):
+    percent = int(100 * iteration / total)
+    sys.stdout.write('\r')
+    sys.stdout.write(f'Progress: [{percent:>{3}}%] {"=" * percent}{" " * (100 - percent)}')
+    sys.stdout.flush()
+
+
 responses = get_search_results()
+
+total_iterations = len(responses)
+for i, response in enumerate(responses, start=1):
+    print_progress(i, total_iterations)
+
+print()
+
 filter_response(responses)

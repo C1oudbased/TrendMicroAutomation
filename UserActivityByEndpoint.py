@@ -2,6 +2,7 @@ import requests
 import configparser
 import json
 import time
+import sys
 from datetime import datetime, timedelta, timezone
 
 
@@ -47,12 +48,11 @@ def get_search_results():
                 print(f'Error {response.status_code}: {response.text}')
         except Exception as e:
             print(e)
-    
+        print_progress(len(results), len(timeframes))
+    print()
     return results
 
-
 user_input = input("Username: ")
-
 
 def filter_response(responses):
     for response in responses:
@@ -80,5 +80,19 @@ def filter_response(responses):
             print(f'Error {response.status_code}: {response.text}')
 
 
+def print_progress(iteration, total):
+    percent = int(100 * iteration / total)
+    sys.stdout.write('\r')
+    sys.stdout.write(f'Progress: [{percent:>{3}}%] {"=" * percent}{" " * (100 - percent)}')
+    sys.stdout.flush()
+
+
 responses = get_search_results()
+
+total_iterations = len(responses)
+for i, response in enumerate(responses, start=1):
+    print_progress(i, total_iterations)
+
+print()
+
 filter_response(responses)

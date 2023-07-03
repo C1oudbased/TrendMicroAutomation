@@ -59,4 +59,4 @@ elif args.command == 'user':
         subprocess.run(['python', 'plugins/UserActivityByEndpoint.py'])
 elif args.command is None:
     print("No command specified.")
-    print("usage: torgal.py [-h] {host,user}")
+    print("usage: torgal.py [-h] host/user --hostname/--username [hostname/username]")

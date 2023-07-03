@@ -38,7 +38,7 @@ def get_search_results():
         url_path = '/v3.0/search/endpointActivities'
         query_params = {'startDateTime': start_time_iso, 'endDateTime': end_time_iso, 'top': '5000'}
         additional_text = ' and endpointHostName:*'
-        headers = {'Authorization': 'Bearer ' + token, 'TMV1-Query': 'logonUser:' + user_input + additional_text}
+        headers = {'Authorization': 'Bearer ' + token, 'TMV1-Query': 'logonUser:' + username + additional_text}
         try:
             response = requests.get(url_base + url_path, params=query_params, headers=headers)
             if response.ok:
@@ -52,7 +52,12 @@ def get_search_results():
     print()
     return results
 
-user_input = input("Username: ")
+if len(sys.argv) < 2:
+    print("Error: username argument missing")
+    sys.exit(1)
+
+username = str(sys.argv[1])
+print(f"Username set to {username}")
 
 def filter_response(responses):
     for response in responses:
@@ -96,3 +101,5 @@ for i, response in enumerate(responses, start=1):
 print()
 
 filter_response(responses)
+
+input("Good boy Torgal! Program executed successfully. Press Enter to exit.")

@@ -12,5 +12,6 @@ This should give a good view of what machines a user has events on in the past 2
 Now we have torgal.py, which takes arguments in the below syntax to execute the programs contained in the plugins folder below torgal.py itself
 
 Currently supported arguments:
+
 torgal.py host --hostname <hostname>
 torgal.py user --username <username>

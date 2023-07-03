@@ -13,6 +13,6 @@ Now we have torgal.py, which takes arguments in the below syntax to execute the 
 
 Currently supported arguments:
 
-torgal.py host --hostname <hostname>
+torgal.py host --hostname [hostname]
 
-torgal.py user --username <username>
+torgal.py user --username [username]

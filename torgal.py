@@ -42,9 +42,10 @@ print(ascii_art)
 
 
 parser = argparse.ArgumentParser(description='Torgal command-line interface')
-parser.add_argument('command', choices=['host', 'user'], nargs='?', help='the command to run')
+parser.add_argument('command', choices=['host', 'user', 'email'], nargs='?', help='the command to run')
 parser.add_argument('--hostname', help='the hostname to use with the host command')
 parser.add_argument('--username', help='the username to use with the user command')
+parser.add_argument('--messageid', help='the message ID to use with the email command')
 args = parser.parse_args()
 
 if args.command == 'host':
@@ -57,6 +58,11 @@ elif args.command == 'user':
         subprocess.run(['python', 'plugins/UserActivityByEndpoint.py', args.username])
     else:
         subprocess.run(['python', 'plugins/UserActivityByEndpoint.py'])
+elif args.command == 'email':
+    if args.messageid:
+        subprocess.run(['python', 'plugins/Quarantine.py', args.messageid])
+    else:
+        subprocess.run(['python', 'plugins/Quarantine.py'])
 elif args.command is None:
     print("No command specified.")
-    print("usage: torgal.py [-h] host/user --hostname/--username [hostname/username]")
+    print("usage: torgal.py [-h] {host,user,email}")

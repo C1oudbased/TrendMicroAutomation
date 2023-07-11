@@ -8,6 +8,8 @@ It'll repeat this query 48 times to equal an entire days worth of data, and then
 UserActivityByEndpoint.py does the same thing, but instead queries "logonUser: <user-input> and endpointHostName:*"
 This should give a good view of what machines a user has events on in the past 24 hours.
 
+Quarantine.py quarantines emails given an EmailID as a string.
+
 
 Now we have torgal.py, which takes arguments in the below syntax to execute the programs contained in the plugins folder below torgal.py itself
 
@@ -16,3 +18,5 @@ Currently supported arguments:
 torgal.py host --hostname [hostname]
 
 torgal.py user --username [username]
+
+torgal.py mail --messageid "<example@example.example.example.outlook.com>"

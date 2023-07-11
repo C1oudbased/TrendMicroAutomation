@@ -19,4 +19,4 @@ torgal.py host --hostname [hostname]
 
 torgal.py user --username [username]
 
-torgal.py mail --messageid "/<example@example.example.example.outlook.com/>"
+torgal.py mail --messageid "/</example@example.example.example.outlook.com/>/"

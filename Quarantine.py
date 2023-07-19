@@ -17,10 +17,8 @@ def quarantine_email(message_id):
     body = [{'messageId':  message_id}]
     r = requests.post(url_base + url_path, params=query_params, headers=headers, json=body)
     print(r.status_code)
-    if 'application/json' in r.headers.get('Content-Type', '') and len(r.content):
-        print(json.dumps(r.json(), indent=4))
-    else:
-        print(r.text)
+    with open('response.log', 'a') as f:
+        f.write(json.dumps(r.json()) + '\n')
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
@@ -28,4 +26,3 @@ if __name__ == '__main__':
         sys.exit(1)
     message_id = sys.argv[1]
     quarantine_email(message_id)
-    input("Good boy Torgal! Program executed successfully. Press Enter to exit.")
